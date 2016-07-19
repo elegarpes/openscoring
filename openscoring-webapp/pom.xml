@@ -47,6 +47,13 @@
 					</webApp>
 				</configuration>
 			</plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <configuration>
+                    <outputDirectory>C:\dev\servers\jboss-eap-6.4\standalone\deployments</outputDirectory>
+                </configuration>
+            </plugin>
 		</plugins>
 	</build>
 </project>

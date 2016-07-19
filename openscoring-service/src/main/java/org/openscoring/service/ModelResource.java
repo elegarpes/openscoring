@@ -173,6 +173,9 @@ public class ModelResource {
 	private Response doDeploy(String id, InputStream is){
 		Model model;
 
+        Timer timer = this.metricRegistry.timer(createName(id, "deploy"));
+
+        Timer.Context context = timer.time();
 		try {
 			model = this.modelRegistry.load(is);
 		} catch(Exception e){
@@ -197,6 +200,12 @@ public class ModelResource {
 		}
 
 		ModelResponse entity = createModelResponse(id, model, true);
+
+        context.stop();
+
+        Counter counter = this.metricRegistry.counter(createName(id, "deploys"));
+
+        counter.inc(1);
 
 		if(oldModel != null){
 			return (Response.ok().entity(entity)).build();
